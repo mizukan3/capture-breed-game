@@ -7,6 +7,7 @@
 参照できたGitHubのHTMLにはv0.23.10/v53と記載されています。
 添付v0.23.14との同一性と、添付v62との差分は未確認です。
 
+- [Windows / Android / iOSなどの検証版](docs/DOWNLOADS.md)
 - [解析と移植計画](docs/ANALYSIS.md)
 - [実装・未実装・未検証](docs/STATUS.md)
 - [性能と測定の範囲](docs/PERFORMANCE.md)

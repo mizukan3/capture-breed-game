@@ -13,3 +13,5 @@
 
 - Android SDKセットアップの追加後、アクション既定の「tools」が現在のSDK配布から取得できず終了した。packagesを必要なplatform-toolsへ限定し、別ステップでNDK/SDK/CMakeを指定する。
 - iOSのXcodeジェネレーターでの構成検査に時間がかかったため、CIは同じiOS SDKを使用するNinjaで検証する。開発者向けXcode生成手順はREADMEに維持し、初回のXcodeコンパイル成功も記録する。
+
+- 最終結果: AndroidはDebug APK生成、iOSはシミュレーター向け.app梱包まで成功。Windows/Linuxのアプリと全コア試験も成功した。各端末の実機確認は未実施。
