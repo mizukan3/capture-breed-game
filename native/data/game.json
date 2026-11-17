@@ -1,0 +1,685 @@
+{
+  "families": [
+    {
+      "name": "ピョン族",
+      "color": "#f0ddbc",
+      "shape": 0
+    },
+    {
+      "name": "魔獣族",
+      "color": "#bca579",
+      "shape": 1
+    },
+    {
+      "name": "魚族",
+      "color": "#e89069",
+      "shape": 2
+    },
+    {
+      "name": "鳥族",
+      "color": "#afc8d0",
+      "shape": 3
+    },
+    {
+      "name": "緑生族",
+      "color": "#99bd72",
+      "shape": 4
+    },
+    {
+      "name": "機兵族",
+      "color": "#b4bbc5",
+      "shape": 5
+    },
+    {
+      "name": "不死族",
+      "color": "#bca6cc",
+      "shape": 6
+    },
+    {
+      "name": "魚人族",
+      "color": "#73beb9",
+      "shape": 7
+    },
+    {
+      "name": "精霊族",
+      "color": "#8eafc8",
+      "shape": 8
+    },
+    {
+      "name": "竜族",
+      "color": "#b29cdb",
+      "shape": 9
+    },
+    {
+      "name": "魔神族",
+      "color": "#c07792",
+      "shape": 10
+    },
+    {
+      "name": "擬態族",
+      "color": "#cfc17e",
+      "shape": 11
+    },
+    {
+      "name": "岩体族",
+      "color": "#afaaa0",
+      "shape": 12
+    }
+  ],
+  "species": [
+    {
+      "id": 0,
+      "name": "ピョン",
+      "baseName": "ピョン",
+      "family": 0,
+      "shape": 0,
+      "color": "#f0ddbc",
+      "v49": true,
+      "variant": 0,
+      "aspect": 0,
+      "tier": 0,
+      "element": "",
+      "hp": 8,
+      "atk": 4,
+      "def": 3,
+      "base": {
+        "hp": 8,
+        "atk": 4,
+        "def": 3,
+        "evasion": 5,
+        "accuracy": 100,
+        "critical": 5
+      },
+      "growth": {
+        "hp": 1.3,
+        "atk": 1.4,
+        "def": 1.4
+      },
+      "targets": {
+        "hp": 200,
+        "atk": 180,
+        "def": 180
+      },
+      "caps": {
+        "hp": 400,
+        "atk": 350,
+        "def": 350
+      },
+      "steps": {
+        "evasion": 3,
+        "accuracy": 0,
+        "critical": 7
+      },
+      "abilities": [
+        "はねる"
+      ],
+      "skill": "はねる",
+      "trait": {
+        "name": "おくびょう",
+        "effect": "timid",
+        "description": "指示にかかわらず探索者のそばへ戻る。敵の時は半径5マスの仲間についていく。"
+      },
+      "traits": [
+        {
+          "name": "おくびょう",
+          "effect": "timid",
+          "description": "指示にかかわらず探索者のそばへ戻る。敵の時は半径5マスの仲間についていく。"
+        }
+      ],
+      "passive": "おくびょう",
+      "nativeSlots": 2,
+      "specialty": "追従",
+      "role": "追従",
+      "description": "一人を怖がる子うさぎ型モンスター。はねるで壁や仲間を飛び越えて、そばへ戻る。",
+      "captureRule": "half",
+      "captureDescription": "HPが最大HPの50%以下",
+      "xp": 3,
+      "gold": 1,
+      "drops": [
+        [
+          "クリスタル",
+          0.01
+        ],
+        [
+          "ピュア",
+          0.1
+        ],
+        [
+          "ミート",
+          0.01
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "name": "デッコイ",
+      "baseName": "デッコイ",
+      "family": 2,
+      "shape": 2,
+      "color": "#e89069",
+      "v49": true,
+      "variant": 0,
+      "aspect": 0,
+      "tier": 0,
+      "element": "",
+      "hp": 10,
+      "atk": 6,
+      "def": 4,
+      "base": {
+        "hp": 10,
+        "atk": 6,
+        "def": 4,
+        "evasion": 1,
+        "accuracy": 90,
+        "critical": 10
+      },
+      "growth": {
+        "hp": 1.4,
+        "atk": 1.1,
+        "def": 1.4
+      },
+      "targets": {
+        "hp": 180,
+        "atk": 300,
+        "def": 150
+      },
+      "caps": {
+        "hp": 350,
+        "atk": 430,
+        "def": 280
+      },
+      "steps": {
+        "evasion": 1,
+        "accuracy": 0,
+        "critical": 10
+      },
+      "abilities": [
+        "デコイ"
+      ],
+      "skill": "デコイ",
+      "trait": {
+        "name": "およぎ",
+        "effect": "swim",
+        "description": "陸上と水中の両方を移動できる。"
+      },
+      "traits": [
+        {
+          "name": "およぎ",
+          "effect": "swim",
+          "description": "陸上と水中の両方を移動できる。"
+        }
+      ],
+      "passive": "およぎ",
+      "nativeSlots": 2,
+      "specialty": "攻撃誘導",
+      "role": "攻撃誘導",
+      "description": "陸上でも活動する巨大なコイ。そっくりな身代わりを置き、敵の攻撃をそらす。",
+      "captureRule": "half",
+      "captureDescription": "HPが最大HPの50%以下",
+      "xp": 5,
+      "gold": 2,
+      "drops": [
+        [
+          "クリスタル",
+          0.01
+        ],
+        [
+          "はじまりの剣",
+          0.1
+        ],
+        [
+          "ピュア",
+          0.05
+        ],
+        [
+          "ミート",
+          0.1
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ドンテング",
+      "baseName": "ドンテング",
+      "family": 8,
+      "shape": 8,
+      "color": "#8eafc8",
+      "v49": true,
+      "variant": 0,
+      "aspect": 0,
+      "tier": 0,
+      "element": "",
+      "hp": 9,
+      "atk": 5,
+      "def": 5,
+      "base": {
+        "hp": 9,
+        "atk": 5,
+        "def": 5,
+        "evasion": 10,
+        "accuracy": 100,
+        "critical": 1
+      },
+      "growth": {
+        "hp": 1.4,
+        "atk": 1.4,
+        "def": 1.4
+      },
+      "targets": {
+        "hp": 150,
+        "atk": 150,
+        "def": 150
+      },
+      "caps": {
+        "hp": 300,
+        "atk": 250,
+        "def": 250
+      },
+      "steps": {
+        "evasion": 10,
+        "accuracy": 0,
+        "critical": 0
+      },
+      "abilities": [
+        "しかいふうさ",
+        "きりばらい"
+      ],
+      "skill": "しかいふうさ",
+      "trait": {
+        "name": "にげあし",
+        "effect": "flee",
+        "description": "HP40%以下の間は恐怖と瞬足になり、敵から逃げる。HPが40%を超えると解除。"
+      },
+      "traits": [
+        {
+          "name": "にげあし",
+          "effect": "flee",
+          "description": "HP40%以下の間は恐怖と瞬足になり、敵から逃げる。HPが40%を超えると解除。"
+        }
+      ],
+      "passive": "にげあし",
+      "nativeSlots": 3,
+      "specialty": "妨害",
+      "role": "妨害",
+      "description": "風と雲を操る天狗。視界封鎖で命中を下げ、弱ると素早く逃げる。",
+      "captureRule": "fear",
+      "captureDescription": "恐怖状態であること（Lv.1ではHP3以下でにげあし）",
+      "xp": 6,
+      "gold": 2,
+      "drops": [
+        [
+          "クリスタル",
+          0.01
+        ],
+        [
+          "しかいなおし",
+          0.2
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "チイサイ",
+      "baseName": "チイサイ",
+      "family": 12,
+      "shape": 12,
+      "color": "#afaaa0",
+      "v49": true,
+      "variant": 0,
+      "aspect": 0,
+      "tier": 0,
+      "element": "",
+      "hp": 17,
+      "atk": 5,
+      "def": 6,
+      "base": {
+        "hp": 17,
+        "atk": 5,
+        "def": 6,
+        "evasion": 0,
+        "accuracy": 95,
+        "critical": 2
+      },
+      "growth": {
+        "hp": 1.2,
+        "atk": 1.4,
+        "def": 1.1
+      },
+      "targets": {
+        "hp": 300,
+        "atk": 140,
+        "def": 340
+      },
+      "caps": {
+        "hp": 400,
+        "atk": 320,
+        "def": 430
+      },
+      "steps": {
+        "evasion": 0,
+        "accuracy": 1,
+        "critical": 1
+      },
+      "abilities": [
+        "ヤサイ",
+        "ヨウサイ"
+      ],
+      "skill": "ヤサイ",
+      "trait": {
+        "name": "どくやけどむこう",
+        "effect": "poisonBurnWard",
+        "description": "毒と火傷にならない。"
+      },
+      "traits": [
+        {
+          "name": "どくやけどむこう",
+          "effect": "poisonBurnWard",
+          "description": "毒と火傷にならない。"
+        }
+      ],
+      "passive": "どくやけどむこう",
+      "nativeSlots": 3,
+      "specialty": "防御",
+      "role": "防御",
+      "description": "小さく硬いサイ。ヤサイでHPを回復し、ヨウサイで3ターン防御力を5倍にする。",
+      "captureRule": "half",
+      "captureDescription": "HPが最大HPの50%以下",
+      "xp": 7,
+      "gold": 2,
+      "drops": [
+        [
+          "クリスタル",
+          0.01
+        ],
+        [
+          "はじまりの盾",
+          0.1
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ヤミピョン",
+      "baseName": "ヤミピョン",
+      "family": 0,
+      "shape": 0,
+      "color": "#f0ddbc",
+      "v49": true,
+      "variant": 0,
+      "aspect": 0,
+      "tier": 0,
+      "element": "",
+      "hp": 25,
+      "atk": 11,
+      "def": 11,
+      "base": {
+        "hp": 25,
+        "atk": 11,
+        "def": 11,
+        "evasion": 5,
+        "accuracy": 100,
+        "critical": 5
+      },
+      "growth": {
+        "hp": 1.3,
+        "atk": 1.3,
+        "def": 1.3
+      },
+      "targets": {
+        "hp": 210,
+        "atk": 190,
+        "def": 190
+      },
+      "caps": {
+        "hp": 410,
+        "atk": 370,
+        "def": 330
+      },
+      "steps": {
+        "evasion": 0,
+        "accuracy": 0,
+        "critical": 9
+      },
+      "abilities": [
+        "ヤミはねる",
+        "ピョンたて"
+      ],
+      "skill": "ヤミはねる",
+      "trait": {
+        "name": "つよき",
+        "effect": "aggressive",
+        "description": "指示にかかわらず、半径15マスの視認・接近できる敵との戦闘を優先する。"
+      },
+      "traits": [
+        {
+          "name": "つよき",
+          "effect": "aggressive",
+          "description": "指示にかかわらず、半径15マスの視認・接近できる敵との戦闘を優先する。"
+        }
+      ],
+      "passive": "つよき",
+      "nativeSlots": 3,
+      "specialty": "ボス",
+      "role": "ボス",
+      "description": "改造実験で変化したピョン。前方に3体を召喚し、はじまりのダンジョンの最奥を守る。",
+      "captureRule": "none",
+      "captureDescription": "通常捕獲不可。配合の組み合わせは未設定。",
+      "xp": 0,
+      "gold": 0,
+      "drops": []
+    }
+  ],
+  "dungeons": [
+    {
+      "id": 0,
+      "name": "はじまりのダンジョン",
+      "floors": 6,
+      "difficulty": 0,
+      "label": "はじめての探索",
+      "theme": "moss",
+      "families": [
+        0,
+        2,
+        8,
+        12
+      ],
+      "feature": "beginning",
+      "rule": "通常5階・6Fヤミピョン／踏破で配合と倉庫が解禁"
+    }
+  ],
+  "themes": {
+    "moss": {
+      "floor": "#48564d",
+      "wall": "#697462",
+      "accent": "#98ba6c",
+      "fog": "#192b2a"
+    },
+    "amber": {
+      "floor": "#5b584b",
+      "wall": "#89775a",
+      "accent": "#d7aa62",
+      "fog": "#262c29"
+    },
+    "moon": {
+      "floor": "#4a515d",
+      "wall": "#666d85",
+      "accent": "#aea5d6",
+      "fog": "#1c2534"
+    },
+    "water": {
+      "floor": "#3b5659",
+      "wall": "#628080",
+      "accent": "#71c6c5",
+      "fog": "#142c32"
+    },
+    "dark": {
+      "floor": "#414951",
+      "wall": "#62697a",
+      "accent": "#ab99c9",
+      "fog": "#1b2331"
+    },
+    "fire": {
+      "floor": "#594943",
+      "wall": "#8a6654",
+      "accent": "#e0a371",
+      "fog": "#322728"
+    },
+    "ice": {
+      "floor": "#4c626a",
+      "wall": "#7f9ca4",
+      "accent": "#a2d3d8",
+      "fog": "#21333d"
+    }
+  },
+  "items": [
+    {
+      "id": 0,
+      "category": "回復",
+      "name": "ピュア",
+      "effect": "heal",
+      "power": 20,
+      "description": "探索者または仲間1体のHPを20回復する。"
+    },
+    {
+      "id": 1,
+      "category": "食料",
+      "name": "ミート",
+      "effect": "food",
+      "power": 50,
+      "description": "探索者の満腹度を50回復する。"
+    },
+    {
+      "id": 2,
+      "category": "回復",
+      "name": "しかいなおし",
+      "effect": "clearBlind",
+      "power": 0,
+      "description": "探索者または仲間1体の視界封鎖を解除する。状態がない時は消費しない。"
+    },
+    {
+      "id": 3,
+      "category": "武器",
+      "name": "はじまりの剣",
+      "effect": "weapon",
+      "power": 1,
+      "description": "装備している間、探索者の攻撃力+1。"
+    },
+    {
+      "id": 4,
+      "category": "盾",
+      "name": "はじまりの盾",
+      "effect": "shield",
+      "power": 1,
+      "guardRate": 1,
+      "description": "装備している間、防御力+1、ガード率+1%。"
+    },
+    {
+      "id": 5,
+      "category": "収容",
+      "name": "モンスターカプセル（小）",
+      "effect": "vessel",
+      "power": 5,
+      "description": "最大5体を収納する。所持上限1個。通常の持ち物20枠には含めない。"
+    },
+    {
+      "id": 6,
+      "category": "捕獲",
+      "name": "クリスタル",
+      "effect": "capture",
+      "power": 0,
+      "description": "捕獲成功時に1個消費する専用資源。無料版上限10個。"
+    },
+    {
+      "id": 7,
+      "category": "魔晶",
+      "name": "Lv魔晶",
+      "effect": "levelCrystal",
+      "power": 20,
+      "description": "仲間1体の最大Lvを20上昇。現在Lvは維持し、最大100まで。"
+    },
+    {
+      "id": 8,
+      "category": "魔晶",
+      "name": "配合魔晶",
+      "effect": "breedCrystal",
+      "power": 0,
+      "description": "配合で能力・通常特技を非継承にする。配合の組み合わせは準備中。"
+    }
+  ],
+  "skills": [
+    {
+      "name": "はねる",
+      "kind": "move",
+      "cost": 5,
+      "cooldown": 0,
+      "range": 6,
+      "fusion": false,
+      "description": "仲間になったピョンは、プレイヤーと生存中の他の同行仲間のうち、最も近い相手から3〜6マス離れた時だけ、最大6マスのジャンプで近くの空き床へ戻る。誰かが2マス以内なら使わない。同距離ではプレイヤーを優先し、仲間だけが同距離ならランダムに1体を選ぶ。壁や穴を飛び越える。使用頻度設定を無視する。"
+    },
+    {
+      "name": "デコイ",
+      "kind": "guard",
+      "cost": 20,
+      "cooldown": 20,
+      "range": 5,
+      "fusion": true,
+      "description": "2回の攻撃で消える回避率0%の身代わりを1体設置。半径5マス以内で視認でき、攻撃できる位置までの経路がある敵を誘導。経路が塞がれた敵は通常の相手と戦う。1体につき同時に1個。"
+    },
+    {
+      "name": "しかいふうさ",
+      "kind": "control",
+      "effect": "blind",
+      "cost": 10,
+      "cooldown": 5,
+      "range": 1,
+      "fusion": true,
+      "normal": true,
+      "description": "隣接する1体を10ターン視界封鎖にし、命中率を元の25%にする。"
+    },
+    {
+      "name": "きりばらい",
+      "kind": "heal",
+      "cost": 10,
+      "cooldown": 0,
+      "range": 3,
+      "fusion": true,
+      "description": "自身と半径3マス以内の味方の視界封鎖を解除する。"
+    },
+    {
+      "name": "ヤサイ",
+      "kind": "heal",
+      "cost": 40,
+      "cooldown": 50,
+      "range": 0,
+      "fusion": true,
+      "description": "自身のHPを最大HPの50%分回復する（切り捨て）。"
+    },
+    {
+      "name": "ヨウサイ",
+      "kind": "guard",
+      "cost": 35,
+      "cooldown": 50,
+      "range": 0,
+      "fusion": true,
+      "description": "3ターン防御力5倍。同時に専用の手止め・足止め3ターンを付与する。防御強化と状態異常は独立。"
+    },
+    {
+      "name": "ヤミはねる",
+      "kind": "move",
+      "cost": 5,
+      "cooldown": 0,
+      "range": 5,
+      "fusion": true,
+      "description": "5マス以内の最も近い敵へジャンプする。壁や穴を飛び越え、空き床へ着地する。"
+    },
+    {
+      "name": "ピョンたて",
+      "kind": "control",
+      "cost": 30,
+      "cooldown": 20,
+      "range": 1,
+      "fusion": true,
+      "description": "前方3マスがすべて空いている時、同じLvのピョン3体を召喚。召喚ターンは行動せず、次のターンから5ターンで消える。捕獲・討伐報酬なし。"
+    }
+  ]
+}

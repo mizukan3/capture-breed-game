@@ -1,0 +1,16 @@
+{
+  "repository": "mizukan3/capture-breed-game",
+  "commit": "19575b6658adda051020359d87b6ff0cc2871360",
+  "path": "index.html",
+  "git_blob": "7563534683aa5ee809d6b3bcf82fceefb7048187",
+  "observed_version": "v0.23.10",
+  "balance_version": 53,
+  "requested_version": "v0.23.14",
+  "requested_version_verified": false,
+  "v62_compared": false,
+  "notes": [
+    "添付ファイルは実行環境不在により直接読み取れていない。GitHub内のHTMLを暫定参照に使用。",
+    "原本のindex.htmlは変更しない。",
+    "元HTMLに配合レシピがなく、現在のダンジョンに罠は生成されない。"
+  ]
+}

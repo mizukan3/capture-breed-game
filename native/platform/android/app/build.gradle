@@ -1,0 +1,48 @@
+plugins { id "com.android.application" }
+def captureRoot = rootProject.projectDir.toPath().resolve("../../..").normalize().toFile()
+def assetsRoot = file(providers.gradleProperty("captureAssetsDir").getOrElse(new File(captureRoot,"build-mobile/assets").absolutePath))
+def sdlRoot = file(providers.gradleProperty("captureSdlDir").getOrElse(new File(captureRoot,".native-deps/SDL").absolutePath))
+if (!new File(sdlRoot,"android-project/app/src/main/java/org/libsdl/app/SDLActivity.java").exists()) {
+    throw new GradleException("Prepare the pinned SDL source first; see native/README.md Android section")
+}
+if (!new File(assetsRoot,"fonts/NotoSansJP.ttf").exists()) {
+    throw new GradleException("Run node native/tools/prepare_mobile_assets.mjs before Gradle")
+}
+android {
+    namespace "com.capturebreed.nativeport"
+    compileSdk 35
+    ndkVersion "27.2.12479018"
+    defaultConfig {
+        applicationId "com.capturebreed.nativeport"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "0.1.0-development"
+        ndk { abiFilters "arm64-v8a" }
+        externalNativeBuild {
+            cmake {
+                arguments "-DCAPTURE_BUILD_APP=ON", "-DCAPTURE_BUILD_TESTS=OFF",
+                    "-DCAPTURE_FONT_PATH=" + new File(assetsRoot,"fonts/NotoSansJP.ttf").absolutePath,
+                    "-DCAPTURE_SHADER_DIR=" + new File(assetsRoot,"shaders").absolutePath,
+                    "-DFETCHCONTENT_SOURCE_DIR_SDL=" + sdlRoot.absolutePath,
+                    "-DANDROID_STL=c++_shared"
+                targets "capture-native", "SDL3-shared"
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake { path new File(captureRoot,"CMakeLists.txt"); version "3.31.1" }
+    }
+    sourceSets {
+        main {
+            java.srcDirs += new File(sdlRoot,"android-project/app/src/main/java")
+            assets.srcDirs = [new File(layout.buildDirectory.get().asFile,"prepared-assets")]
+        }
+    }
+    buildTypes { release { minifyEnabled false } }
+}
+tasks.register("prepareCaptureAssets", Copy) {
+    from(assetsRoot)
+    into(new File(layout.buildDirectory.get().asFile,"prepared-assets/assets"))
+}
+tasks.named("preBuild").configure { dependsOn("prepareCaptureAssets") }
