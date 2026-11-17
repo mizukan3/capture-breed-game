@@ -1,0 +1,4 @@
+#pragma once
+namespace capture {
+inline constexpr char embedded_game_data[]=R"capture_data(@CAPTURE_GAME_JSON@)capture_data";
+}

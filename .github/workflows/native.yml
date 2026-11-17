@@ -1,0 +1,35 @@
+name: Native port validation
+on:
+  push:
+    branches: ['native/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  core:
+    name: C++20 core (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCAPTURE_BUILD_APP=OFF
+      - name: Build
+        run: cmake --build build --config Release --parallel 2
+      - name: Compare against original JavaScript
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-validation-${{ matrix.os }}
+          path: build/Testing/Temporary/LastTest.log
