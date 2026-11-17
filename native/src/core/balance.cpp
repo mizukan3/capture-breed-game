@@ -27,10 +27,13 @@ Stats apply_modifiers(Stats s,Modifiers m) {
  constexpr double stages[]{.5,.75,1.,1.25,1.5};
  s.attack=static_cast<int>(std::floor(s.attack*stages[std::clamp(m.attack_stage,-2,2)+2]));
  s.defense=static_cast<int>(std::floor(s.defense*stages[std::clamp(m.defense_stage,-2,2)+2]));
- if(m.soft)s.defense=0;if(m.fortress)s.defense*=5;
+ if(m.soft)s.defense=0;
+ if(m.fortress)s.defense*=5;
  if(m.blind)s.accuracy=static_cast<int>(std::floor(s.accuracy*.25));
  if(m.gravity)s.evasion=static_cast<int>(std::floor(s.evasion*.1));
- if(m.flinch)s.evasion=0;if(m.dodge)s.evasion=100;if(m.decoy)s.evasion=0;
+ if(m.flinch)s.evasion=0;
+ if(m.dodge)s.evasion=100;
+ if(m.decoy)s.evasion=0;
  s.guard_rate=std::clamp(s.guard_rate+m.guard_rate,0,100);return s;
 }
 bool capture_condition(const Data& d,int id,int hp,int max_hp,bool boss,bool summoned,bool decoy,bool fear,bool trait_fear) {

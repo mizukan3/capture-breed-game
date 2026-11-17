@@ -40,7 +40,7 @@ Distances Floor::reachable(Cell from) const {
  return result;
 }
 void Floor::reveal(Cell p) {
- std::fill(visible.begin(),visible.end(),0);
+ std::fill(visible.begin(),visible.end(),std::uint8_t{0});
  for(int z=std::max(0,p.z-7);z<=std::min(size-1,p.z+7);++z)
  for(int x=std::max(0,p.x-7);x<=std::min(size-1,p.x+7);++x)
  if((x-p.x)*(x-p.x)+(z-p.z)*(z-p.z)<=49&&line_of_sight(p,{x,z})) {
@@ -82,9 +82,13 @@ Floor generate_floor(std::uint32_t seed,int number) {
  if(boss)f.enemies.push_back({f.next_uid++,4,1,{10,10},true});
  else {
   std::vector<int> ids;
-  if(number==1)ids={0};if(number==2)ids={0,1};if(number==3)ids={0,1,2};if(number==5)ids={0,1,2,3};
+  if(number==1)ids={0};
+ if(number==2)ids={0,1};
+ if(number==3)ids={0,1,2};
+ if(number==5)ids={0,1,2,3};
   if(number==4)for(int n=0;n<3;++n) {
-   double roll=rng.random()*3;int id=2;for(int i=0;i<3;++i){roll-=1;if(roll<0){id=i;break;}}ids.push_back(id);
+   double roll=rng.random()*3;int id=2;for(int i=0;i<3;++i){roll-=1;
+ if(roll<0){id=i;break;}}ids.push_back(id);
   }
   for(int id:ids) {
    std::vector<Cell> available;for(Cell p:points)if(distance(p,f.spawn)>=4&&!used[static_cast<std::size_t>(p.z*f.size+p.x)])available.push_back(p);
@@ -94,10 +98,13 @@ Floor generate_floor(std::uint32_t seed,int number) {
    f.enemies.push_back({f.next_uid++,id,1,p,false});
   }
   const int gear=number==1?3:number==2?4:rng.random()<.5?3:4;
-  std::vector<int> item_ids{gear,0};if(number==1)item_ids.push_back(0);
+  std::vector<int> item_ids{gear,0};
+ if(number==1)item_ids.push_back(0);
   if(number==1)item_ids.push_back(1);
-  else {const double r=rng.random();if(r>=.95){item_ids.push_back(1);item_ids.push_back(1);}else if(r>=.85)item_ids.push_back(1);}
-  const double crystal=rng.random();if(crystal>=.995){item_ids.push_back(6);item_ids.push_back(6);}else if(crystal>=.945)item_ids.push_back(6);
+  else {const double r=rng.random();
+ if(r>=.95){item_ids.push_back(1);item_ids.push_back(1);}else if(r>=.85)item_ids.push_back(1);}
+  const double crystal=rng.random();
+ if(crystal>=.995){item_ids.push_back(6);item_ids.push_back(6);}else if(crystal>=.945)item_ids.push_back(6);
   for(int id:item_ids) {
    std::vector<Cell> available;for(Cell p:points)if(!used[static_cast<std::size_t>(p.z*f.size+p.x)])available.push_back(p);
    const int i=rng.bounded(static_cast<int>(available.size()));
@@ -114,7 +121,8 @@ Json floor_snapshot(const Floor& f,const Data& d) {
  for(const auto& r:f.rooms)rooms.push_back({{"x",r.x},{"z",r.z},{"w",r.w},{"h",r.h},{"cx",r.cx},{"cz",r.cz}});
  for(const auto& e:f.enemies){const auto s=species_stats(d,e.species,e.level);enemies.push_back({{"uid",e.uid},{"species",e.species},{"level",e.level},{"x",e.cell.x},{"z",e.cell.z},{"hp",s.max_hp},{"maxHp",s.max_hp},{"atk",s.attack},{"def",s.defense},{"boss",e.boss}});}
  for(const auto& a:f.drops)drops.push_back({{"uid",a.uid},{"x",a.cell.x},{"z",a.cell.z},{"itemId",a.item_id},{"gold",0}});
- for(auto x:f.visible)visible.push_back(x!=0);for(auto x:f.visited)visited.push_back(x!=0);
+ for(auto x:f.visible)visible.push_back(x!=0);
+ for(auto x:f.visited)visited.push_back(x!=0);
  return {{"size",f.size},{"tiles",f.tiles},{"visible",visible},{"visited",visited},{"rooms",rooms},
  {"stairs",{{"x",f.stairs.x},{"z",f.stairs.z}}},{"spawn",{{"x",f.spawn.x},{"z",f.spawn.z}}},
  {"enemies",enemies},{"drops",drops},{"rng",f.rng_state},{"uid",f.next_uid},{"seen",f.seen}};

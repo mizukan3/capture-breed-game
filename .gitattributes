@@ -1,0 +1,6 @@
+* text=auto eol=lf
+index.html -text
+*.mesh -text
+*.spv -text
+*.ttf -text
+*.png -text

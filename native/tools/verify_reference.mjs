@@ -50,7 +50,7 @@ const attackGame=new engine.Game();
 for(const seed of seeds)for(const sureHit of [false,true])for(const unguardable of [false,true])for(const frozen of [false,true]) {
  const attacker={maxHp:15,atk:11,def:5,evasion:5,accuracy:90,critical:37,guardRate:0};
  const defender={maxHp:25,atk:5,def:7,evasion:20,accuracy:100,critical:5,guardRate:23};
- const a={x:1,z:1,sureHit:sureHit?1:0},b={x:1,z:2,hp:99999,freeze:frozen?1:0};
+ const a={x:1,z:1,sureHit:sureHit?1:0},b={x:1,z:2,species:0,hp:99999,freeze:frozen?1:0};
  let kind='hit',critical=false;
  attackGame.state.rng=seed;attackGame.stats=m=>m===a?attacker:defender;
  attackGame.combatEvent=type=>{if(type==='miss'||type==='guard')kind=type;};
