@@ -10,6 +10,7 @@ class Profiler {
  Uint64 start_{},previous_{};
 public:
  struct Stats {double fps{},mean_ms{},p95_ms{},cpu_mean_ms{};std::size_t frames{};};
+ void reset(){next_=count_=0;start_=previous_=0;frame_.fill(0);cpu_.fill(0);}
  void begin(){start_=SDL_GetPerformanceCounter();}
  void end() {
   const auto now=SDL_GetPerformanceCounter();const double hz=static_cast<double>(SDL_GetPerformanceFrequency());

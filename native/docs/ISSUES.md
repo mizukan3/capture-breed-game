@@ -7,3 +7,6 @@
 - Android CI初回: sdkmanagerがPATHに存在せず終了。SDKセットアップを明示する処理を追加する。
 - iOS初回: configureとcompileは成功したが、成果物アップロード先をbin/Release-iphonesimulatorと誤指定した。実際のbin/Releaseへ修正し、.appの実行権限を保つためdittoでzip化する。
 - 依存取得: リポジトリの全履歴cloneに時間がかかったため、同一の固定コミットのソースアーカイブを使う方式へ変更。FreeTypeはSDL_ttfが指すサブモジュールのコミットを維持する。
+
+- AndroidのGradleプロジェクトにsettings.gradleを追加し、appサブプロジェクトとGoogle/Mavenの取得先を明示する。
+- バックグラウンド復帰時には測定窓をリセットし、休止時間を通常描画フレームの平均へ混ぜない。

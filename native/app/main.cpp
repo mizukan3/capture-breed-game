@@ -105,7 +105,7 @@ struct App {
   switch(e.type) {
    case SDL_EVENT_QUIT:case SDL_EVENT_WINDOW_CLOSE_REQUESTED:quit=true;break;
    case SDL_EVENT_WILL_ENTER_BACKGROUND:case SDL_EVENT_WINDOW_MINIMIZED:suspended=true;audio->pause(true);save_settings();break;
-   case SDL_EVENT_DID_ENTER_FOREGROUND:case SDL_EVENT_WINDOW_RESTORED:suspended=false;audio->pause(false);break;
+   case SDL_EVENT_DID_ENTER_FOREGROUND:case SDL_EVENT_WINDOW_RESTORED:suspended=false;audio->pause(false);profiler.reset();break;
    case SDL_EVENT_MOUSE_BUTTON_UP:if(e.button.which!=SDL_TOUCH_MOUSEID&&e.button.button==SDL_BUTTON_LEFT)click(e.button.x/ui_scale,e.button.y/ui_scale);break;
    case SDL_EVENT_FINGER_UP:{int w{},h{};SDL_GetWindowSize(window,&w,&h);click(e.tfinger.x*w/ui_scale,e.tfinger.y*h/ui_scale);break;}
    case SDL_EVENT_KEY_DOWN:
