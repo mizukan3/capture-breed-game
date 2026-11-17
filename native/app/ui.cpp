@@ -14,9 +14,12 @@ Ui::~Ui(){for(auto& [key,c]:cache_)gpu_.release(c.texture);gpu_.release(white_);
 void Ui::begin(float density) {
  vertices.clear();batches.clear();++clock_;
  if(!font_||std::abs(density-density_)>.05f) {
-  for(auto& [key,c]:cache_)gpu_.release(c.texture);cache_.clear();
-  if(font_)TTF_CloseFont(font_);font_=TTF_OpenFont(font_path_.c_str(),16*density);
-  if(!font_)throw std::runtime_error(std::string("Japanese font: ")+SDL_GetError());density_=density;
+  for(auto& [key,c]:cache_)gpu_.release(c.texture);
+  cache_.clear();
+  if(font_)TTF_CloseFont(font_);
+  font_=TTF_OpenFont(font_path_.c_str(),16*density);
+  if(!font_)throw std::runtime_error(std::string("Japanese font: ")+SDL_GetError());
+  density_=density;
  }
 }
 void Ui::quad(SDL_GPUTexture* texture,SDL_FRect r,UiColor c) {

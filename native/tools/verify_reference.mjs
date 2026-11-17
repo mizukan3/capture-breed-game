@@ -67,6 +67,38 @@ for(const text of ['', 'abc','探索者・ピョン','🧪😀','{"name":"ヤミ
 for(const aspect of [.45,1,1.78,2.4])for(const angle of [0,Math.PI/2,Math.PI,Math.PI*1.5])for(const zoom of [0,1]) {
  const r={op:'camera',x:7,z:10,aspect,angle,zoom};add(r,ref['view.js'].cameraRig(r.x,r.z,aspect,0,zoom,angle));
 }
+const saveApi=ref['save-store.js'],key='test-save',payloadA='{"turn":1,"name":"ピョン😀"}',payloadB='{"turn":2,"name":"ヤミピョン"}';
+const meta=(payload,sequence)=>JSON.stringify({format:'turn-dungeon-save',schema:1,sequence,checksum:saveApi.saveChecksum(payload),savedAt:'2000-01-01T00:00:00.000Z'});
+const writeA={type:'write',payload:payloadA},writeB={type:'write',payload:payloadB};
+const saveCases=[
+ {entries:{},actions:[{type:'inspect'},writeA,writeA,writeB,{type:'restore'},{type:'remove'}]},
+ {entries:{[key]:payloadA},actions:[{type:'inspect'},writeA,writeA]},
+ {entries:{[key]:'broken',[key+'-backup-v1']:payloadA,[key+'-backup-meta-v1']:meta(payloadA,2)},actions:[{type:'inspect'},{type:'restore'},writeB]},
+ {entries:{[key]:payloadA,[key+'-meta-v1']:meta(payloadA,2),[key+'-staging-v1']:payloadB,[key+'-staging-meta-v1']:meta(payloadB,3)},actions:[{type:'inspect'},writeA]},
+ {entries:{[key]:payloadA,[key+'-meta-v1']:'{}'},actions:[{type:'inspect'},writeB]}
+];
+for(let at=1;at<=6;at++)saveCases.push({entries:{},actions:[writeA,{type:'fail',at},writeB,{type:'inspect'}]});
+for(const scenario of saveCases) {
+ const entries=new Map(Object.entries(scenario.entries));let failAt=0,writes=0;
+ const storage={getItem:k=>entries.get(k)??null,setItem:(k,v)=>{if(++writes===failAt)throw new Error('injected write');entries.set(k,v);},removeItem:k=>entries.delete(k)};
+ const validate=s=>s&&typeof s==='object'&&Number.isInteger(s.turn),out=[];
+ for(const action of scenario.actions) {
+  const row={error:false,result:null};
+  try {
+   if(action.type==='write')row.result={written:saveApi.writeDurableSave(storage,key,action.payload,validate).written};
+   else if(action.type==='restore')row.result={ok:saveApi.restoreDurableBackup(storage,key,validate).ok};
+   else if(action.type==='remove')saveApi.deleteDurableSave(storage,key);
+   else if(action.type==='put')storage.setItem(action.key,action.value);
+   else if(action.type==='erase')storage.removeItem(action.key);
+   else if(action.type==='fail'){failAt=action.at;writes=0;}
+  }catch{row.error=true;}
+  const inspected=saveApi.inspectDurableSave(storage,key,validate);
+  row.inspection=Object.fromEntries(['source','payload','state','sequence','recovered','legacy','hasBackup','primaryValid','corrupt'].map(k=>[k,inspected[k]]));
+  out.push(row);
+ }
+ add({op:'save',...scenario},out);
+}
+
 const executable=process.argv[2];if(!executable)throw new Error('Pass the built native-probe executable path.');
 const run=spawnSync(executable,[],{input:requests.map(JSON.stringify).join('\n')+'\n',encoding:'utf8',maxBuffer:64*1024*1024});
 assert.equal(run.status,0,run.stderr||String(run.error));

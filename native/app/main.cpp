@@ -43,7 +43,7 @@ struct App {
  App(int argc,char** argv) {
   for(int i=1;i<argc;++i){const std::string arg=argv[i];if(arg.starts_with("--smoke-frames="))smoke_frames=std::max(1,std::stoi(arg.substr(15)));}
   char* pref=SDL_GetPrefPath("CaptureBreed","NativePort");
-  if(pref){settings_path=std::filesystem::u8path(pref)/"workbench-settings.json";SDL_free(pref);}
+  if(pref){settings_path=std::filesystem::path(reinterpret_cast<const char8_t*>(pref))/"workbench-settings.json";SDL_free(pref);}
   if(!smoke_frames)load_settings();
   window=SDL_CreateWindow("つかまえて配合！ SDL3移植検証",1100,760,SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY);
   if(!window)throw std::runtime_error(SDL_GetError());
