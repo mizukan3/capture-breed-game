@@ -1,0 +1,7 @@
+/build*/
+/dist/
+/native/platform/android/.gradle/
+/native/platform/android/app/build/
+/native/platform/android/local.properties
+/.native-deps/
+*.user

@@ -1,0 +1,80 @@
+name: SDL3 native application
+on:
+  push:
+    branches: ['native/**']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-app-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  shaders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y glslang-tools
+      - name: Compile SPIR-V
+        run: |
+          mkdir -p shader-build
+          for shader in scene.vert scene.frag ui.vert ui.frag; do
+            glslangValidator -V "native/assets/shaders/$shader" -o "shader-build/$shader.spv"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-shaders
+          path: shader-build
+  desktop:
+    needs: shaders
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-shaders
+          path: shader-build
+      - name: Linux development packages
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev libxfixes-dev libxss-dev libxtst-dev libwayland-dev libxkbcommon-dev libdrm-dev libgbm-dev libasound2-dev mesa-vulkan-drivers xvfb
+      - name: Configure
+        run: cmake -S . -B build-app -DCMAKE_BUILD_TYPE=Release -DCAPTURE_BUILD_APP=ON -DCAPTURE_SHADER_DIR="${{ github.workspace }}/shader-build"
+      - name: Build
+        run: cmake --build build-app --config Release --parallel 2
+      - name: Core parity
+        run: ctest --test-dir build-app -C Release --output-on-failure
+      - name: Vulkan and Japanese text smoke test
+        if: runner.os == 'Linux'
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_GPU_DRIVER: vulkan
+        run: xvfb-run -a build-app/bin/capture-native --smoke-frames=8
+      - name: Package
+        run: cmake --install build-app --config Release --prefix dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: capture-native-${{ runner.os }}-development
+          path: dist
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: application-validation-${{ runner.os }}
+          path: build-app/Testing/Temporary/LastTest.log
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure unsigned simulator build
+        run: cmake -S . -B build-ios -G Xcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0 -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED=NO -DCAPTURE_BUILD_APP=ON -DCAPTURE_BUILD_TESTS=OFF
+      - name: Compile
+        run: cmake --build build-ios --config Release --parallel 2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: capture-native-iOS-simulator-development
+          path: build-ios/bin/Release-iphonesimulator/*.app
