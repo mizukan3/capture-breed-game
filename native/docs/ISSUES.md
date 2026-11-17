@@ -10,3 +10,6 @@
 
 - AndroidのGradleプロジェクトにsettings.gradleを追加し、appサブプロジェクトとGoogle/Mavenの取得先を明示する。
 - バックグラウンド復帰時には測定窓をリセットし、休止時間を通常描画フレームの平均へ混ぜない。
+
+- Android SDKセットアップの追加後、アクション既定の「tools」が現在のSDK配布から取得できず終了した。packagesを必要なplatform-toolsへ限定し、別ステップでNDK/SDK/CMakeを指定する。
+- iOSのXcodeジェネレーターでの構成検査に時間がかかったため、CIは同じiOS SDKを使用するNinjaで検証する。開発者向けXcode生成手順はREADMEに維持し、初回のXcodeコンパイル成功も記録する。
