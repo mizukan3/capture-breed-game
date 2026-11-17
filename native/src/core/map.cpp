@@ -48,9 +48,9 @@ void Floor::reveal(Cell p) {
  }
  for(const auto& e:enemies)if(visible[static_cast<std::size_t>(e.cell.z*size+e.cell.x)]&&std::find(seen.begin(),seen.end(),e.species)==seen.end())seen.push_back(e.species);
 }
-Floor generate_floor(std::uint32_t seed,int number) {
+Floor generate_floor(std::uint32_t seed,int number,int next_uid) {
  if(number<1||number>6)throw std::invalid_argument("floor must be 1..6");
- Rng rng(seed);Floor f;f.number=number;const bool boss=number==6;f.size=boss?21:29;
+ Rng rng(seed);Floor f;f.next_uid=next_uid;f.number=number;const bool boss=number==6;f.size=boss?21:29;
  f.tiles.assign(static_cast<std::size_t>(f.size*f.size),0);f.visible=f.tiles;f.visited=f.tiles;
  auto carve=[&](int x,int z,int w,int h){for(int zz=z;zz<z+h;++zz)for(int xx=x;xx<x+w;++xx)f.tiles[static_cast<std::size_t>(zz*f.size+xx)]=1;};
  if(boss){carve(2,2,17,17);f.rooms.push_back({2,2,17,17,10,10});}

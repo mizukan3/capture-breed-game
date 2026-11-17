@@ -19,6 +19,8 @@ void Ui::begin(float density) {
   if(font_)TTF_CloseFont(font_);
   font_=TTF_OpenFont(font_path_.c_str(),16*density);
   if(!font_)throw std::runtime_error(std::string("Japanese font: ")+SDL_GetError());
+  for(const Uint32 codepoint:{0x6355u,0x7372u,0x914du,0x5408u,0x63a2u,0x7d22u,0x8005u})
+   if(!TTF_FontHasGlyph(font_,codepoint))throw std::runtime_error("Japanese font glyph missing");
   density_=density;
  }
 }

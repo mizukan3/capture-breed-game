@@ -2,6 +2,7 @@ name: Native port validation
 on:
   push:
     branches: ['native/**']
+    paths-ignore: ['**/*.md']
   workflow_dispatch:
 permissions:
   contents: read
@@ -28,10 +29,14 @@ jobs:
       - name: Build
         run: cmake --build build --config Release --parallel 2
       - name: Compare against original JavaScript
-        run: ctest --test-dir build -C Release --output-on-failure
+        run: ctest --test-dir build -C Release --output-on-failure --verbose
+      - name: Measure floor-generation cost
+        run: cmake --build build --config Release --target profile-map
       - name: Preserve validation logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: core-validation-${{ matrix.os }}
-          path: build/Testing/Temporary/LastTest.log
+          path: |
+            build/Testing/Temporary/LastTest.log
+            build/map-benchmark.json

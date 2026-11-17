@@ -17,7 +17,8 @@ struct Floor {
  Distances reachable(Cell from) const;
  void reveal(Cell from);
 };
-Floor generate_floor(std::uint32_t seed,int number);
+// The fresh game consumes UID 10 for its initial capsule. Later floors pass the current UID.
+Floor generate_floor(std::uint32_t seed,int number,int next_uid=11);
 Json floor_snapshot(const Floor&,const Data&);
 Json stats_json(Stats);
 }
